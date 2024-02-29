@@ -1,0 +1,16 @@
+.calc {
+    width: 500px;
+    border: 10px solid orange;
+    background-color: gray;
+    padding: 50px;
+    margin: 20px;
+  }
+button {
+    border: none;
+    color: gray;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
