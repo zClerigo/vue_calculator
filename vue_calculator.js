@@ -7,11 +7,16 @@ const app = createApp({
     data() {
         return {
             input: "",
+            undo: [],
         };
     },
     methods: {
         add(value) {
             this.input += value;
+        },
+        remove() {
+            undo.push(this.input)
+            this.input = this.input.slice(0, -1);
         },
     },
 }).mount("#app");
