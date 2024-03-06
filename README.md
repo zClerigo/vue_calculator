@@ -2,4 +2,4 @@
 
 Zidanni Clerigo : zClerigo
 
-JunXi : [GITHUB_USERNAME]
+JunXi : manejtan
