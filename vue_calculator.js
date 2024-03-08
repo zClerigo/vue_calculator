@@ -78,7 +78,11 @@ const app = createApp({
                 }
             }
             console.log(this.input)
-            try { this.input = (eval(this.input)).toString(); } catch (error) { this.input = "Error" }
+            try { 
+                this.undo.push(this.input);
+                this.input = (eval(this.input)).toString(); 
+            } 
+            catch (error) { this.input = "Error" }
         },
         handleKeyPress(event) {
             if (event.key === "Enter") {
