@@ -1,0 +1,19 @@
+2/29 - Zidanni: set up html and css files. Created calculator buttons and borders and stylized them with css.
+
+2/29 - JunXi: Absent
+
+3/4 - Zidanni: finished html and css customization, giving the calculator app a look similar to the iPhone calculator 
+
+3/4 - JunXi: did some javascript. When the button is pressed it shows up in the input (it only works with some buttons time ran out)
+
+3/5 - Zidanni: created calculation functions and typing functions. Ran into numerous errors with having parentheses work with the sqrt() and % operations but fixed by creating a bunch of conditionals. I also ran into an error where pressing Enter would add ‘<div><br></div>’ instead of calculating the input. Fixed this by creating a handleKeyPress function and adding “event.preventDefault();” into my code to prevent the default action taken when pressing Enter.
+
+3/5 - Junxi: i started the undo thing and i also helped with the calculating
+
+3/6-Junxi: undo 90% done
+
+3/6 - Zidanni: started fixing cases where using parentheses to multiply and multiplying two pis together would work.
+
+3/7 Junxi: -undo is done
+
+3/7 - Zidanni: added computed properties and watch to trim the input to help it be digested by the method functions. Also finished the cases I was working on yesterday.  
