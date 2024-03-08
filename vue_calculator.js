@@ -26,9 +26,10 @@ const app = createApp({
     },
     methods: {
         remove() {
-            this.undo.push(this.input);
-            this.input = "";
-            console.log("yes");
+            if(this.input.length != 0){
+                this.undo.push(this.input);
+                this.input = "";
+            }
         },
         undothis() {
             if (this.undo.length != 0) {
@@ -38,6 +39,9 @@ const app = createApp({
         },
         add(value) {
             this.input += value;
+            if(this.input.length != 0){
+                this.undo.push(this.input.slice(0, -1));
+            }      
         },
         updateInput(event){
             this.input = event.target.innerHTML;
@@ -101,9 +105,15 @@ const app = createApp({
                 }
                 }
                 console.log(this.input);
-            try { if(this.input.length != 0){
-                this.undo.push(this.input);
-            }this.input = eval(this.noSpaces);} catch(error) {this.input = "Error";}
+            try { 
+                if(this.input.length != 0){
+                    this.undo.push(this.input);
+                }
+                this.input = eval(this.noSpaces);
+            } catch(error) {
+                this.input = "Error";
+                console.log(error);
+            }
         },
         handleKeyPress(event) {
             if (event.key === "Enter") {
