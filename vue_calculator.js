@@ -45,6 +45,9 @@ const app = createApp({
         },
         updateInput(event){
             this.input = event.target.innerHTML;
+            if(this.input.length != 0){
+                this.undo.push(this.input.slice(0, -1));
+            }      
         },
         calculate() {
             for (let i = 0; i < this.input.length; i++) {
