@@ -7,19 +7,28 @@ const app = createApp({
     data() {
         return {
             input: "",
+            error: false,
+            beforePercent: "",
+            afterSqrt: "",
+            foundParen : false,
             undo: [],
         };
     },
+    computed : {
+        noSpaces: function(){
+            return this.input.replace(/ /g, '');
+        }
+    },
+    watch : {
+        noNewLines() {
+            this.input = this.input.replace(/\n/g, '');
+        }
+    },
     methods: {
-        add(value) {
-            this.input += value;
-        },
         remove() {
-            if(this.input.length != 0){
-                this.undo.push(this.input);
-                this.input = "";
-                console.log("yes");
-            }
+            this.undo.push(this.input);
+            this.input = "";
+            console.log("yes");
         },
         undothis() {
             if (this.undo.length != 0) {
@@ -27,7 +36,10 @@ const app = createApp({
                 this.input += this.undo.pop();
             }
         },
-        updateInput(event) {
+        add(value) {
+            this.input += value;
+        },
+        updateInput(event){
             this.input = event.target.innerHTML;
         },
         calculate() {
@@ -39,29 +51,29 @@ const app = createApp({
                         for (let j = 0; j < this.beforePercent.length; j++) {
                             if (this.beforePercent[j] == "(" && this.foundParen == false) {
                                 this.foundParen = true;
-                                this.input = this.input.replace("%", "")
-                                this.input = this.input.replace(this.beforePercent.substring(j + 1, i - 1), eval(this.beforePercent.substring(j + 1, i - 1)) * 0.01)
+                                this.input = this.input.replace("%","")
+                                this.input = this.input.replace(this.beforePercent.substring(j+1,i-1), eval(this.beforePercent.substring(j+1,i-1)) * 0.01)
                             }
                         }
                     }
                     else {
-                        this.input = this.input.slice(0, i - 1) + this.input[i - 1] * 0.01 + this.input.slice(i + 1)
+                        this.input = this.input.slice(0, i - 1) + this.input[i-1]*0.01 + this.input.slice(i + 1)
                     }
                 }
                 if (this.input[i] == '√') {
                     if (this.input[i + 1] == '(') {
                         this.foundParen = false;
-                        this.afterSqrt = this.input.slice(i + 1);
+                        this.afterSqrt = this.input.slice(i+1);
                         for (let j = 0; j < this.afterSqrt.length; j++) {
                             if (this.afterSqrt[j] == ")" && this.foundParen == false) {
                                 this.foundParen = true;
-                                this.input = this.input.replace("√", "")
-                                this.input = this.input.replace(this.afterSqrt.substring(i, j + 1), Math.sqrt(eval(this.afterSqrt.substring(i + 1, j))))
+                                this.input = this.input.replace("√","")
+                                this.input = this.input.replace(this.afterSqrt.substring(i,j+1), Math.sqrt(eval(this.afterSqrt.substring(i+1,j))))
                             }
                         }
                     }
                     else {
-                        this.input = this.input.slice(0, i) + Math.sqrt(this.input[i + 1]) + this.input.slice(i + 2)
+                        this.input = this.input.slice(0, i) + Math.sqrt(this.input[i+1]) + this.input.slice(i + 2)
                     }
                 }
                 if (this.input[i] == 'm' && this.input[i + 1] == 'o' && this.input[i + 2] == 'd') {
@@ -71,30 +83,32 @@ const app = createApp({
                     this.input = this.input.slice(0, i) + "**" + this.input.slice(i + 1)
                 }
                 if (this.input[i] == 'π') {
+                    if (this.input[i + 1] == 'π') {
+                        this.input = this.input.slice(0, i) + "Math.PI * "+ this.input.slice(i + 1)
+                    } else{
                     this.input = this.input.slice(0, i) + "Math.PI" + this.input.slice(i + 1)
+                    }
                 }
                 if (this.input[i] == '(') {
                     if (this.input.indexOf(')') === -1) {
                         this.input = this.input.replace("(", "");
                     }
                 }
-            }
-            console.log(this.input)
-            try { 
-                if(this.input.length != 0){
-                    this.undo.push(this.input);
+                if (this.input[i] == ')') {
+                    if (this.input[i + 1] == '(') {
+                        this.input = this.input.slice(0, i) + ")*" + this.input.slice(i + 1)
+                    }
                 }
-                this.input = (eval(this.input)).toString(); 
-            } 
-            catch (error) { 
-                this.input = "Error" 
-                console.log(error);
-            }
+                }
+                console.log(this.input);
+            try { if(this.input.length != 0){
+                this.undo.push(this.input);
+            }this.input = eval(this.noSpaces);} catch(error) {this.input = "Error";}
         },
         handleKeyPress(event) {
             if (event.key === "Enter") {
-                event.preventDefault();
-                this.calculate();
+              event.preventDefault();
+              this.calculate();
             }
         },
     },
