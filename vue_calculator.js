@@ -87,7 +87,7 @@ const app = createApp({
                     this.input = this.input.slice(0, i) + "**" + this.input.slice(i + 1)
                 }
                 if (this.input[i] == 'π') {
-                    if (this.input[i + 1] == 'π') {
+                    if (this.input[i + 1] == 'π' || !isNaN(parseInt(this.input[i+1]))) {
                         this.input = this.input.slice(0, i) + "Math.PI * "+ this.input.slice(i + 1)
                     } else{
                     this.input = this.input.slice(0, i) + "Math.PI" + this.input.slice(i + 1)
@@ -99,21 +99,21 @@ const app = createApp({
                     }
                 }
                 if (this.input[i] == ')') {
-                    if (this.input[i + 1] == '(') {
+                    if (this.input[i + 1] == '(' || this.input[i + 1] == 'π') {
                         this.input = this.input.slice(0, i) + ")*" + this.input.slice(i + 1)
+                    }
+                }
+                if (!isNaN(parseInt(this.input[i]))) {
+                    console.log("asd")
+                    if (this.input[i + 1] == 'π') {
+                        this.input = this.input.slice(0, i) + this.input[i] + "*" + this.input.slice(i + 1)
                     }
                 }
                 }
                 console.log(this.input);
-            try { 
-                if(this.input.length != 0){
-                    this.undo.push(this.input);
-                }
-                this.input = eval(this.noSpaces);
-            } catch(error) {
-                this.input = "Error";
-                console.log(error);
-            }
+            try { if(this.input.length != 0){
+                this.undo.push(this.input);
+            }this.input = eval(this.noSpaces);} catch(error) {this.input = "Error";}
         },
         handleKeyPress(event) {
             if (event.key === "Enter") {
