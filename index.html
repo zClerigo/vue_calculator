@@ -7,13 +7,14 @@
 </head>
 <body>
 <div id="app" class="calc">
-<h3> {{ input }} </h3>
+<button @click="undothis()" type="button" class="operation">Undo</button><br>
+<h3 class="input" contenteditable="true" @keydown.enter="handleKeyPress" @input="updateInput"> {{ input }} </h3>
 
-<button @click="remove()" class="top-row" style="background-color : #ee0303; color : white;">✕</button><button type="button" class="top-row">(</button><button type="button" class="top-row">)</button><button type="button" class="top-row">%</button><button type="button" class="top-row">π</button><br>
-<button @click="add(7)">7</button><button @click="add(8)">8</button><button @click="add(9)">9</button><button @click="add('/')" class="operation">/</button><button type="button" class="operation">√</button><br>
-<button @click="add(4)">4</button><button @click="add(5)">5</button><button @click="add(6)">6</button><button type="button" class="operation">*</button><button type="button" class="operation">^2</button><br>
-<button @click="add(1)">1</button><button @click="add(2)">2</button><button @click="add(3)">3</button><button type="button" class="operation">-</button><button type="button" class="operation">=</button><br>
-<button @click="add(0)" class="zero">0</button><button type="button">.</button><button type="button" class="operation">mod</button><button type="button" class="operation">+</button><br>
+<button @click="remove()" type="button" class="top-row" style="background-color : #ee0303; color : white;">✕</button><button @click="add('(')" type="button" class="top-row">(</button><button @click="add(')')" type="button" class="top-row">)</button><button @click="add('%')" type="button" class="top-row">%</button><button @click="add('π')" type="button" class="top-row">π</button><br>
+<button @click="add('7')">7</button><button @click="add('8')">8</button><button @click="add('9')">9</button><button @click="add('/')" class="operation">/</button><button @click="add('√')" type="button" class="operation">√</button><br>
+<button @click="add('4')">4</button><button @click="add('5')">5</button><button @click="add('6')">6</button><button @click="add('*')" type="button" class="operation">*</button><button @click="add('^2')" type="button" class="operation">^2</button><br>
+<button @click="add('1')">1</button><button @click="add('2')">2</button><button @click="add('3')">3</button><button @click="add('-')" type="button" class="operation">-</button><button @click="calculate()" type="button" class="operation">=</button><br>
+<button @click="add('0')" class="zero">0</button><button @click="add('.')" type="button">.</button><button @click="add('mod')" type="button" class="operation">mod</button><button @click="add('+')" type="button" class="operation">+</button><br>
 
 
 </div>
