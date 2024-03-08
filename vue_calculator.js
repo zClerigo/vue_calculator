@@ -99,7 +99,7 @@ const app = createApp({
                     }
                 }
                 if (this.input[i] == ')') {
-                    if (this.input[i + 1] == '(' || this.input[i + 1] == 'π') {
+                    if (this.input[i + 1] == '(' || this.input[i + 1] == 'π' || !isNaN(parseInt(this.input[i+1]))) {
                         this.input = this.input.slice(0, i) + ")*" + this.input.slice(i + 1)
                     }
                 }
@@ -107,6 +107,17 @@ const app = createApp({
                     console.log("asd")
                     if (this.input[i + 1] == 'π') {
                         this.input = this.input.slice(0, i) + this.input[i] + "*" + this.input.slice(i + 1)
+                    }
+                    if (this.input[i + 1] == '(') {
+                        this.foundParen = false;
+                        this.afterSqrt = this.input.slice(i+1);
+                        for (let j = 0; j < this.afterSqrt.length; j++) {
+                            if (this.afterSqrt[j] == ")" && this.foundParen == false) {
+                                console.log(this.afterSqrt.substring(i+1,j));
+                                this.foundParen = true;
+                                this.input = this.input.replace(this.afterSqrt.substring(i,j+1),"*(" + this.afterSqrt.substring(i+1,j) + ")")
+                            }
+                        }
                     }
                 }
                 }
