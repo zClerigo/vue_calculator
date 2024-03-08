@@ -13,6 +13,16 @@ const app = createApp({
             foundParen : false,
         };
     },
+    computed : {
+        noSpaces: function(){
+            return this.input.replace(/ /g, '');
+        }
+    },
+    watch : {
+        noNewLines() {
+            this.input = this.input.replace(/\n/g, '');
+        }
+    },
     methods: {
         add(value) {
             this.input += value;
@@ -61,16 +71,25 @@ const app = createApp({
                     this.input = this.input.slice(0, i) + "**" + this.input.slice(i + 1)
                 }
                 if (this.input[i] == 'π') {
+                    if (this.input[i + 1] == 'π') {
+                        this.input = this.input.slice(0, i) + "Math.PI * "+ this.input.slice(i + 1)
+                    } else{
                     this.input = this.input.slice(0, i) + "Math.PI" + this.input.slice(i + 1)
+                    }
                 }
                 if (this.input[i] == '(') {
                     if (this.input.indexOf(')') === -1) {
                         this.input = this.input.replace("(", "");
                     }
                 }
+                if (this.input[i] == ')') {
+                    if (this.input[i + 1] == '(') {
+                        this.input = this.input.slice(0, i) + ")*" + this.input.slice(i + 1)
+                    }
                 }
-            console.log(this.input)
-            try {this.input = eval(this.input);} catch(error) {this.input = "Error"}
+                }
+                console.log(this.input);
+            try { this.input = eval(this.noSpaces);} catch(error) {this.input = "Error";}
         },
         handleKeyPress(event) {
             if (event.key === "Enter") {
