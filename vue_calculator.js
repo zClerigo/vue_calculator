@@ -15,11 +15,13 @@ const app = createApp({
             this.input += value;
         },
         remove() {
-            this.undo.push(this.input.charAt(this.input.length - 1));
-            this.input = this.input.slice(0, -1);
+            this.undo.push(this.input);
+            this.input = "";
+            console.log("yes");
         },
         undothis() {
             if (this.undo.length != 0) {
+                this.input = "";
                 this.input += this.undo.pop();
             }
         },
